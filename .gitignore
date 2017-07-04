@@ -1,0 +1,6 @@
+# cpp compiles
+*.o
+*.exe
+
+# python compiles
+*.pyc
