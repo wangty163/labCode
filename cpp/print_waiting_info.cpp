@@ -9,5 +9,5 @@ int main() {
 [2017-07-01 16:16:23]After LoadDic:NGram\lexi_ungram.txt\
 ");
     int x; std::cin >> x;
-	return 0;
+    return 0;
 }
