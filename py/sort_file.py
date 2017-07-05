@@ -20,4 +20,6 @@ def sort_file(in_file):
 		fw.write('\r\n'.encode('gbk').join(lines))
 	logging.info('end...')
 
-sort_file(lexi_3Gram_gen)
+if __name__ == '__main__':
+	while True:
+		sort_file(input())
