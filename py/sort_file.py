@@ -1,4 +1,5 @@
 from utils.BasicLogging import *
+import utils.Console as Console
 
 lexi_uigram = r'C:\Users\wuyuming\OneDrive - Office\Project\ChineseProofread\NGram\lexi_ungram.txt'
 lexi_bigram_result = r'C:\Users\wuyuming\OneDrive - Office\Project\ChineseProofread\NGram\lexi_bigram_result.txt'
@@ -22,4 +23,4 @@ def sort_file(in_file):
 
 if __name__ == '__main__':
 	while True:
-		sort_file(input())
+		sort_file(Console.get_input_file_path())
