@@ -18,9 +18,11 @@ def sort_file(in_file):
 		lines = list(lines)
 		lines.sort()
 	with open(in_file, 'wb') as fw:
-		fw.write('\r\n'.encode('gbk').join(lines))
+		for line in lines:
+			fw.write(line)
+			fw.write('\r\n'.encode('gbk'))
 	logging.info('end...')
 
 if __name__ == '__main__':
 	while True:
-		sort_file(Console.get_input_file_path())
+		sort_file(Console.get_input_file_path('Input file path: '))
