@@ -1,6 +1,7 @@
 from pyquery import PyQuery as pq
 from utils.Folder import *
-import re,sys,pdb
+from utils.BasicLogging import *
+import re,sys,pdb,multiprocessing
 
 '''
 为了从百度百科语料中抽取出纯文本
@@ -40,7 +41,7 @@ class Extrator:
 			page_lines.append(line)
 		# the last page
 		if page_lines:
-			yield '\n'.join(page_lines)
+			yield url,'\n'.join(page_lines)
 			page_lines.clear()
 
 class BaikeParser:
@@ -68,16 +69,38 @@ def uprint(s):
 		sys.stdout.buffer.write(s.encode('gbk', errors='ignore'))
 		sys.stdout.buffer.write('\n'.encode('gbk'))
 
+def solve_file(file_path, out_folder):
+    logging.debug(file_path)
+    file_name = os.path.basename(file_path)
+    out_file = os.path.join(out_folder, file_name + '_extracted.txt')
+
+    if not os.path.exists(out_folder):
+        os.makedirs(out_folder)
+
+    with open(out_file, 'w', encoding='gbk', errors='ignore') as fw:
+        e = Extrator(file_path, encoding='utf-8', errors='ignore')
+        for url,page in e.extract():
+            for line in BaikeParser.parse(page):
+            #for line in filter(filter_line, BaikeParser.parse(page)):
+                fw.write(line)
+                fw.write('\n')
+                #uprint(line)
+                #print(line)
+                #input('wait..')
+                #sys.exit(0)
+        r'''
+        for line in filter(filter_line, BaikeParser.parse(page)):
+            uprint(line)
+            input('wait..')
+            '''
+
 def main():
-	file = 'part-r-00043'
-	e = Extrator(file, encoding='utf-8')
-	for url,page in e.extract():
-		r'''
-		with open(r'C:\Users\wuyuming\Desktop\1.html', 'w', encoding='utf8') as fw:
-			fw.write(page)
-		input('wait..')
-			'''
-		for line in filter(filter_line, BaikeParser.parse(page)):
-			uprint(line)
-			input('wait..')
+    processes = []
+    for file_path in list_all_files('/home/wty/copus'):
+        processes.append(multiprocessing.Process(target=solve_file, args=(file_path, '/home/wty/copus_extracted')))
+    for process in processes:
+        process.start()
+    for process in processes:
+        process.join()
+
 main()
