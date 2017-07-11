@@ -1,2 +1,2 @@
 # labCode
-Some code in lab.
+Some codes in lab.
