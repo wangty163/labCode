@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from utils.BasicLogging import *
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
@@ -17,7 +19,7 @@ def get_driver():
 	return browser
 
 def login():
-	print_info("登陆账号")
+	logging.info("登陆账号")
 	driver = get_driver()
 	driver.get("http://159.226.39.22/srun_portal_pc.php?ac_id=1&")
 	driver.find_element_by_id("username").clear()

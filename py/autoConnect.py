@@ -1,5 +1,6 @@
 import re, time
 import urllib.request
+from utils.BasicLogging import *
 
 # -*- coding: utf-8 -*-
 from selenium import webdriver
@@ -23,12 +24,8 @@ request_cnt = 3
 # 经过多长时间没有返回结果，认为超时
 login_timeout = 10
 
-def print_info(*info):
-	localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-	print("[", localtime, "]\t", *info)
-
 def need_login():
-	print_info("测试网络是否连通")
+	logging.info("测试网络是否连通")
 	url = "https://www.baidu.com"
 	timout_cnt = 0
 	for _ in range(request_cnt):
@@ -37,12 +34,12 @@ def need_login():
 				data_byte = response.read()
 				data = data_byte.decode("utf-8", errors="ignore")
 				if data.find("baidu") == -1:
-					print_info("自动跳转到登陆页面")
+					logging.info("自动跳转到登陆页面")
 					return True
 				else:
 					return False
 		except urllib.error.URLError:
-			print_info("访问超时")
+			logging.info("访问超时")
 			timout_cnt += 1
 			time.sleep(request_sleep_time)
 	return timout_cnt == request_cnt
@@ -79,7 +76,7 @@ def get_driver():
 	return browser
 
 def login():
-	print_info("登陆账号")
+	logging.info("登陆账号")
 	driver = get_driver()
 	driver.get("http://159.226.39.22/srun_portal_pc.php?ac_id=1&")
 	driver.find_element_by_id("username").clear()
@@ -89,6 +86,7 @@ def login():
 	driver.find_element_by_id("button").click()
 	WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.a.a_demo_two')))
 	driver.close()
+	logging.info("登陆完成")
 
 def logout():
 	driver = get_driver()
@@ -104,9 +102,9 @@ def logout():
 if __name__ == "__main__":
 	while True:
 		if need_login():
-			print_info("网络不连通，准备登陆")
+			logging.info("网络不连通，准备登陆")
 			login()
 		else:
-			print_info("测试结束，网络连通")
-		print_info("程序开始休眠")
+			logging.info("测试结束，网络连通")
+		logging.info("程序开始休眠")
 		time.sleep(sleep_time)
