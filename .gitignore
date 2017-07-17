@@ -1,3 +1,6 @@
+# log files
+*.log
+
 # cpp compiles
 *.o
 *.exe
