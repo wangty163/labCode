@@ -14,11 +14,11 @@ sleep_time = 1 * 60 * 60
 
 # 网络状态测试：
 # 经过多长时间没有返回结果，认为超时
-request_timeout = 10
+request_timeout = 5
 # 超时后，下一次测试间隔
 request_sleep_time = 1
 # 最多几次超时后认为网络不连通
-request_cnt = 3
+# request_cnt = 3
 
 # 登录
 # 经过多长时间没有返回结果，认为超时
@@ -64,8 +64,9 @@ def login():
 '''
 
 def get_driver():
-	#driver = webdriver.Firefox()
-	#return driver
+	driver = webdriver.PlantomJs()
+	return driver
+	
 	firefox_profile = webdriver.FirefoxProfile()
 	firefox_profile.set_preference("browser.download.folderList", 2)
 	firefox_profile.set_preference("permissions.default.stylesheet", 2)

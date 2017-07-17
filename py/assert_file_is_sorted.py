@@ -6,8 +6,8 @@ def check_file(in_file):
 		pre_line = bytes()
 		for line in fr:
 			if line < pre_line:
-				print('pre_line: ', pre_line)
-				print('cur_line: ', line)
+				print('pre_line: ', pre_line.decode('gbk', errors='ignore'))
+				print('cur_line: ', line.decode('gbk', errors='ignore'))
 				sys.exit(1)
 			pre_line = line
 
