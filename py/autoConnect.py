@@ -18,11 +18,11 @@ request_timeout = 5
 # 超时后，下一次测试间隔
 request_sleep_time = 1
 # 最多几次超时后认为网络不连通
-# request_cnt = 3
+request_cnt = 3
 
 # 登录
 # 经过多长时间没有返回结果，认为超时
-login_timeout = 10
+# login_timeout = 10
 
 def need_login():
 	logging.info("测试网络是否连通")
