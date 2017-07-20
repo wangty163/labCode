@@ -64,9 +64,8 @@ def login():
 '''
 
 def get_driver():
-	driver = webdriver.PlantomJs()
-	return driver
-	
+	#return webdriver.PhantomJS()
+	return webdriver.Firefox()
 	firefox_profile = webdriver.FirefoxProfile()
 	firefox_profile.set_preference("browser.download.folderList", 2)
 	firefox_profile.set_preference("permissions.default.stylesheet", 2)

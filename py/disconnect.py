@@ -5,8 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 
 def get_driver():
-	#driver = webdriver.Firefox()
-	#return driver
+	#return webdriver.PhantomJS()
+	return webdriver.Firefox()
 	firefox_profile = webdriver.FirefoxProfile()
 	firefox_profile.set_preference("browser.download.folderList", 2)
 	firefox_profile.set_preference("permissions.default.stylesheet", 2)
