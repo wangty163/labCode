@@ -1,20 +1,22 @@
+# -*- coding: utf-8 -*-
 import re, time
 import urllib.request
 from utils.BasicLogging import *
 
-# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 
+from connect import login
+from disconnect import logout
 
 # 程序检测间隔
 sleep_time = 1 * 60 * 60
 
 # 网络状态测试：
 # 经过多长时间没有返回结果，认为超时
-request_timeout = 5
+request_timeout = 2
 # 超时后，下一次测试间隔
 request_sleep_time = 1
 # 最多几次超时后认为网络不连通
@@ -75,29 +77,6 @@ def get_driver():
 	browser = webdriver.Firefox(firefox_profile=firefox_profile)
 	return browser
 
-def login():
-	logging.info("登陆账号")
-	driver = get_driver()
-	driver.get("http://159.226.39.22/srun_portal_pc.php?ac_id=1&")
-	driver.find_element_by_id("username").clear()
-	driver.find_element_by_id("username").send_keys("wangtianyu")
-	driver.find_element_by_id("password").clear()
-	driver.find_element_by_id("password").send_keys("8882302")
-	driver.find_element_by_id("button").click()
-	WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.a.a_demo_two')))
-	driver.close()
-	logging.info("登陆完成")
-
-def logout():
-	driver = get_driver()
-	driver.get("http://159.226.39.22/srun_portal_pc.php?ac_id=1&")
-	driver.find_element_by_id("username").clear()
-	driver.find_element_by_id("username").send_keys("wangtianyu")
-	driver.find_element_by_id("password").clear()
-	driver.find_element_by_id("password").send_keys("8882302")
-	driver.find_element_by_id("button").click()
-	WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.a.a_demo_two'))).click()
-	driver.close()
 	
 if __name__ == "__main__":
 	while True:
