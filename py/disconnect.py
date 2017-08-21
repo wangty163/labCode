@@ -11,7 +11,7 @@ def get_driver():
 	firefox_profile.set_preference("browser.download.folderList", 2)
 	firefox_profile.set_preference("permissions.default.stylesheet", 2)
 	firefox_profile.set_preference("permissions.default.image", 2)
-	firefox_profile.set_preference("javascript.enable", False)
+	#firefox_profile.set_preference("javascript.enable", False)
 
 	browser = webdriver.Firefox(firefox_profile=firefox_profile)
 	return browser
