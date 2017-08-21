@@ -26,7 +26,7 @@ def logout():
 		driver.find_element_by_id("username").clear()
 		driver.find_element_by_id("username").send_keys("wangtianyu")
 		driver.find_element_by_id("password").clear()
-		driver.find_element_by_id("password").send_keys("8882302")
+		driver.find_element_by_id("password").send_keys("321321")
 		driver.find_element_by_id("button").click()
 		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.a.a_demo_two'))).click()
 	finally:
